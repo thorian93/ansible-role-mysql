@@ -1,0 +1,5 @@
+---
+mariadb_prerequisites:
+ - MySQL-python
+
+mysql_unix_socket: '/var/lib/mysql/mysql.sock'

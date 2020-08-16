@@ -1,0 +1,11 @@
+---
+- name: "Install prerequisites."
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ mysql_prerequisites }}"
+
+- name: "Install MySQL Server."
+  package:
+    name: "{{ mysql_server_package }}"
+    state: present

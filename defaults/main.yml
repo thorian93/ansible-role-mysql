@@ -1,0 +1,20 @@
+---
+mysql_stable_os:
+  - Debian 8
+  - Debian 9
+  - Debian 10
+  - Ubuntu 14
+  - Ubuntu 16
+  - Ubuntu 18
+  - Ubuntu 20
+  - CentOS 7
+  - CentOS 8
+
+mysql_login_root_remote: 'false'
+
+mysql_root_user: 'root'
+mysql_root_pw: []
+mysql_backup_user: 'backup'
+mysql_backup_pw: []
+mysql_monitoring_user: 'monitoring'
+mysql_monitoring_pw: []

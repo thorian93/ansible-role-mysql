@@ -17,7 +17,20 @@ No special requirements; note that this role requires root access, so either run
 
 ## Role Variables
 
-ToDo
+Available variables are listed below, along with default values (see `defaults/main.yml`):
+
+    mysql_login_root_remote: 'false'
+
+If set to `false`, the root user will be prevented from logging in remotely.
+
+    mysql_root_user: 'root'
+    mysql_root_pw: []
+    mysql_backup_user: 'backup'
+    mysql_backup_pw: []
+    mysql_monitoring_user: 'monitor'
+    mysql_monitoring_pw: []
+
+Configure user accounts for `root`, `backup` and `monitoring` with appropriate grants. If either the name or password are empty or the variable is not defined at all, the configuration will be skipped for that user.
 
 ## Dependencies
 

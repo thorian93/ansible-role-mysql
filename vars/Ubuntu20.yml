@@ -1,0 +1,3 @@
+---
+mysql_prerequisites:
+  - python3-pymysql
