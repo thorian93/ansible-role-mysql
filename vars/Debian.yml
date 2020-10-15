@@ -1,9 +1,8 @@
 ---
 mysql_prerequisites:
-#  - python-mysqldb # Deprecated of sorts?
   - python-pymysql
 
 mysql_server_package:
- - mysql-server
+  - mysql-server
 
 mysql_unix_socket: '/var/run/mysqld/mysqld.sock'
