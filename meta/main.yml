@@ -3,3 +3,27 @@ galaxy_info:
   author: Thorian93
   description: Ansible Role MySQL
   license: "license (MIT)"
+
+  min_ansible_version: 2.9
+
+  galaxy_tags:
+    - linux
+    - server
+    - database
+
+  platforms:
+    - name: EL
+      versions:
+      - 7
+      - 8
+    - name: Debian
+      versions:
+      - Jessie
+      - Stretch
+      - Buster
+    - name: Ubuntu
+      versions:
+      - Trusty
+      - Xenial
+      - Bionic
+      - Focal

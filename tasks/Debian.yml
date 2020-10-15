@@ -1,5 +1,5 @@
 ---
-- name: "Install prerequisites."
+- name: "Install Prerequisites."
   package:
     name: "{{ item }}"
     state: present
