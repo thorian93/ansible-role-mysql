@@ -67,7 +67,7 @@
     login_password: "{{ mysql_root_pw }}"
     login_unix_socket: "{{ mysql_unix_socket }}"
     name: ''
-    host_all: yes
+    host_all: 'yes'
     state: absent
 
 - name: "Delete MySQL Test Database on first Run."

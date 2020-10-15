@@ -1,27 +1,27 @@
 ---
- - name: "Check whether MariaDB is installed."
-   shell: yum list installed mariadb-server
-   args:
-     executable: bash
-   register: mysql_status
-   failed_when: mysql_status.rc > 1
-   changed_when: mysql_status.rc == 1
+- name: "Check whether MariaDB is installed."
+  shell: yum list installed mariadb-server
+  args:
+    executable: bash
+  register: mysql_status
+  failed_when: mysql_status.rc > 1
+  changed_when: mysql_status.rc == 1
 
- - name: "Install Prerequisites."
-   package:
-     name: "{{ item }}"
-     state: present
-   with_items: "{{ mariadb_prerequisites }}"
+- name: "Install Prerequisites."
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ mariadb_prerequisites }}"
 
- - name: "Install MariaDB Server."
-   package:
-     name: mariadb-server
-     state: present
-   when: mysql_status.rc == 1
+- name: "Install MariaDB Server."
+  package:
+    name: mariadb-server
+    state: present
+  when: mysql_status.rc == 1
 
- - name: "Start MariaDB Server."
-   service:
-     name: mariadb
-     state: started
-     enabled: true
-   when: mysql_status.rc == 1
+- name: "Start MariaDB Server."
+  service:
+    name: mariadb
+    state: started
+    enabled: true
+  when: mysql_status.rc == 1
