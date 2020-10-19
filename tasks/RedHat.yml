@@ -3,6 +3,7 @@
   shell: yum list installed mariadb-server
   args:
     executable: bash
+    warn: 'false'
   register: mysql_status
   failed_when: mysql_status.rc > 1
   changed_when: mysql_status.rc == 1

@@ -101,3 +101,7 @@
     host: localhost
     state: present
   when: (mysql_monitoring_user is defined and mysql_monitoring_user | length) and (mysql_monitoring_pw is defined and mysql_monitoring_pw | length)
+
+- name: "Include Autobackup Playbook."
+  include_tasks: autobackup.yml
+  when: mysql_autobackup_enable | bool
