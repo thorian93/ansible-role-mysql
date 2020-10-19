@@ -12,6 +12,9 @@ mysql_stable_os:
 
 mysql_login_root_remote: 'false'
 
+mysql_autobackup_enable: 'false'
+mysql_autobackup_destination: /var/lib/automysqlbackup
+
 mysql_root_user: 'root'
 mysql_root_pw: []
 mysql_backup_user: 'backup'

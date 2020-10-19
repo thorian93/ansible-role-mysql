@@ -8,7 +8,7 @@ This role installs MySQL on RHEL/CentOS, Debian/Ubuntu and Fedora servers.
 
 ## Known issues
 
-None.
+When enabling the automatic backup mechanism currently you have to install `automysqlbackup` yourself when you are on a `RedHat` derivate prior to using this role. Otherwise the role will fail. Configuration can be managed though, as long as you have installed `automysqlbackup` with default settings from their install script.
 
 ## Requirements
 
@@ -26,6 +26,11 @@ Available variables are listed below, along with default values (see `defaults/m
     mysql_login_root_remote: 'false'
 
 If set to `false`, the root user will be prevented from logging in remotely.
+
+    mysql_autobackup_enable: 'false'
+    mysql_autobackup_destination: /var/lib/automysqlbackup
+
+Configure automatic backups using `automysqlbackup`.
 
     mysql_root_user: 'root'
     mysql_root_pw: []

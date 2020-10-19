@@ -3,3 +3,6 @@ mariadb_prerequisites:
  - MySQL-python
 
 mysql_unix_socket: '/var/lib/mysql/mysql.sock'
+
+
+mysql_autobackup_config: 'etc/automysqlbackup/automysqlbackup.conf'

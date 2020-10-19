@@ -1,0 +1,44 @@
+---
+- name: "Install AutoMySQLBackup on Debian Derivates."
+  package:
+    name: automysqlbackup
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: "Download AutoMySQLBackup on RedHat Derivates."
+  get_url:
+    url: "{{ mysql_autobackup_download }}"
+    dest: /tmp/automysqlbackup.tar.gz
+  when: ansible_os_family == "RedHat"
+
+- name: "Unpack AutoMySQLBackup on RedHat Derivates."
+  unarchive:
+    src: /tmp/automysqlbackup.tar.gz
+    dest: /tmp/
+    remote_src: 'yes'
+  when: ansible_os_family == "RedHat"
+
+- name: "Install AutoMySQLBackup on RedHat Derivates."
+  shell: "set -o pipefail && printf '/etc/automysqlbackup\n/usr/local/sbin' | /tmp/install.sh"
+  args:
+    creates: /usr/local/sbin/automysqlbackup
+    executable: /bin/bash
+    warn: 'false'
+  when: ansible_os_family == "RedHat"
+
+- name: "Ensure Backup Destination exists."
+  file:
+    path: "{{ mysql_autobackup_destination }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0750
+
+- name: "Upload Configuration File."
+  template:
+    src: "{{ mysql_autobackup_config }}.j2"
+    dest: "/{{ mysql_autobackup_config }}"
+    owner: root
+    group: root
+    mode: 0644
+    backup: 'yes'
