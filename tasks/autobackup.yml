@@ -15,7 +15,7 @@
   unarchive:
     src: /tmp/automysqlbackup.tar.gz
     dest: /tmp/
-    remote_src: yes
+    remote_src: 'yes'
   when: ansible_os_family == "RedHat"
 
 - name: "Install AutoMySQLBackup on RedHat Derivates."
