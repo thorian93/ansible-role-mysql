@@ -88,7 +88,7 @@
     priv: "*.*:SELECT,SHOW VIEW,RELOAD,REPLICATION CLIENT,EVENT,TRIGGER,LOCK TABLES"
     host: localhost
     state: present
-  when: (mysql_backup_user is defined and mysql_backup_user | length) and (mysql_backup_pw is defined and mysql_backup_pw | length)
+  when: (mysql_monitoring_user is defined and mysql_monitoring_user | length) and (mysql_monitoring_pw is defined)
 
 - name: "Create MySQL Monitoring User."
   mysql_user:
@@ -100,7 +100,7 @@
     priv: "*.*:SELECT,SHOW VIEW,SHOW DATABASES"
     host: localhost
     state: present
-  when: (mysql_monitoring_user is defined and mysql_monitoring_user | length) and (mysql_monitoring_pw is defined and mysql_monitoring_pw | length)
+  when: (mysql_monitoring_user is defined and mysql_monitoring_user | length) and (mysql_monitoring_pw is defined)
 
 - name: "Include Autobackup Playbook."
   include_tasks: autobackup.yml
