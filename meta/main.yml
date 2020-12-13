@@ -18,12 +18,13 @@ galaxy_info:
         - 8
     - name: Debian
       versions:
-        - Jessie
         - Stretch
         - Buster
+    - name: Fedora
+      versions:
+        - 31
+        - 32
     - name: Ubuntu
       versions:
-        - Trusty
-        - Xenial
         - Bionic
         - Focal
