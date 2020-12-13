@@ -1,11 +1,12 @@
 ---
 - name: "Install Prerequisites."
-  package:
-    name: "{{ item }}"
+  apt:
+    name: "{{ mysql_prerequisites }}"
     state: present
-  with_items: "{{ mysql_prerequisites }}"
+    update_cache: 'yes'
 
 - name: "Install MySQL Server."
-  package:
+  apt:
     name: "{{ mysql_server_package }}"
     state: present
+    update_cache: 'yes'
