@@ -11,13 +11,13 @@
 
 - name: "Include Distribution specific Variables."
   include_vars: "{{ ansible_distribution }}.yml"
-  changed_when: false
-  failed_when: false
+  changed_when: 'false'
+  failed_when: 'false'
 
 - name: "Include Distribution Version specific Variables."
   include_vars: "{{ ansible_distribution }}{{ ansible_distribution_major_version }}.yml"
-  changed_when: false
-  failed_when: false
+  changed_when: 'false'
+  failed_when: 'false'
 
 - name: "Include OS Family specific Playbook."
   include_tasks: "{{ ansible_os_family }}.yml"
@@ -25,13 +25,13 @@
 - name: "Get MySQL Version."
   command: 'mysql --version'
   register: mysql_cli_version
-  changed_when: false
+  changed_when: 'false'
 
 - name: "Disable remote root login."
   command: 'mysql -NBe "{{ item }}"'
   with_items:
     - DELETE FROM mysql.user WHERE User='{{ mysql_root_user }}' AND Host NOT IN ('localhost', '127.0.0.1', '::1')
-  changed_when: false
+  changed_when: 'false'
   when: mysql_login_root_remote | bool
 
 - name: "Get list of Hosts for the root User."
@@ -41,22 +41,26 @@
     WHERE User = 'root'
     ORDER BY (Host='localhost') ASC"
   register: mysql_root_hosts
-  changed_when: false
+  changed_when: 'false'
 
 - name: "Update MySQL root Password for localhost root Account (5.7.x)."
   shell: >
     mysql -u root -NBe
     'ALTER USER "{{ mysql_root_user }}"@"{{ item }}"
-    IDENTIFIED WITH mysql_native_password BY "{{ mysql_root_pw }}";'
+    IDENTIFIED WITH mysql_native_password BY "{{ mysql_root_pw }}"; FLUSH PRIVILEGES;'
   with_items: "{{ mysql_root_hosts.stdout_lines|default([]) }}"
-  when: ('5.7.' in mysql_cli_version.stdout or '8.0.' in mysql_cli_version.stdout)
+  when:
+    - ('5.7.' in mysql_cli_version.stdout or '8.0.' in mysql_cli_version.stdout)
+    - (mysql_root_user is defined and mysql_root_user | length) and (mysql_root_pw is defined)
 
 - name: "Update MySQL root Password for localhost root Account (< 5.7.x)."
   shell: >
     mysql -NBe
-    'SET PASSWORD FOR "{{ mysql_root_user }}"@"{{ item }}" = PASSWORD("{{ mysql_root_pw }}");'
+    'SET PASSWORD FOR "{{ mysql_root_user }}"@"{{ item }}" = PASSWORD("{{ mysql_root_pw }}"); FLUSH PRIVILEGES;'
   with_items: "{{ mysql_root_hosts.stdout_lines|default([]) }}"
-  when: ('5.7.' not in mysql_cli_version.stdout and '8.0.' not in mysql_cli_version.stdout)
+  when:
+    - ('5.7.' not in mysql_cli_version.stdout and '8.0.' not in mysql_cli_version.stdout)
+    - (mysql_root_user is defined and mysql_root_user | length) and (mysql_root_pw is defined)
 
 - name: "Copy .my.cnf in place."
   template:
@@ -65,11 +69,12 @@
     mode: 0600
     owner: root
     group: root
+  when: (mysql_root_user is defined and mysql_root_user | length) and (mysql_root_pw is defined)
 
 - name: "Delete anonymous MySQL User."
   mysql_user:
     login_user: "{{ mysql_root_user }}"
-    login_password: "{{ mysql_root_pw }}"
+    login_password: "{{ mysql_root_pw | default('') }}"
     login_unix_socket: "{{ mysql_unix_socket }}"
     name: ''
     host_all: 'yes'
@@ -78,7 +83,7 @@
 - name: "Delete MySQL Test Database on first Run."
   mysql_db:
     login_user: "{{ mysql_root_user }}"
-    login_password: "{{ mysql_root_pw }}"
+    login_password: "{{ rootmysql_root_pw | default('') }}"
     login_unix_socket: "{{ mysql_unix_socket }}"
     name: test
     state: absent
@@ -86,19 +91,19 @@
 - name: "Create MySQL Backup User."
   mysql_user:
     login_user: "{{ mysql_root_user }}"
-    login_password: "{{ mysql_root_pw }}"
+    login_password: "{{ rootmysql_root_pw | default('') }}"
     login_unix_socket: "{{ mysql_unix_socket }}"
     name: "{{ mysql_backup_user }}"
     password: "{{ mysql_backup_pw }}"
     priv: "*.*:SELECT,SHOW VIEW,RELOAD,REPLICATION CLIENT,EVENT,TRIGGER,LOCK TABLES"
     host: localhost
     state: present
-  when: (mysql_monitoring_user is defined and mysql_monitoring_user | length) and (mysql_monitoring_pw is defined)
+  when: (mysql_backup_user is defined and mysql_backup_user | length) and (mysql_backup_pw is defined)
 
 - name: "Create MySQL Monitoring User."
   mysql_user:
     login_user: "{{ mysql_root_user }}"
-    login_password: "{{ mysql_root_pw }}"
+    login_password: "{{ rootmysql_root_pw | default('') }}"
     login_unix_socket: "{{ mysql_unix_socket }}"
     name: "{{ mysql_monitoring_user }}"
     password: "{{ mysql_monitoring_pw }}"
@@ -109,4 +114,4 @@
 
 - name: "Include Autobackup Playbook."
   include_tasks: autobackup.yml
-  when: mysql_autobackup_enable | bool
+  when: (mysql_autobackup_enable | bool) and (mysql_backup_user is defined and mysql_backup_user | length) and (mysql_backup_pw is defined)

@@ -33,13 +33,13 @@ If set to `false`, the root user will be prevented from logging in remotely.
 Configure automatic backups using `automysqlbackup`.
 
     mysql_root_user: 'root'
-    mysql_root_pw: []
+    # mysql_root_pw:
     mysql_backup_user: 'backup'
-    mysql_backup_pw: []
-    mysql_monitoring_user: 'monitor'
-    mysql_monitoring_pw: []
+    # mysql_backup_pw:
+    mysql_monitoring_user: 'monitoring'
+    # mysql_monitoring_pw:
 
-Configure user accounts for `root`, `backup` and `monitoring` with appropriate grants. If either the name or password are empty or the variable is not defined at all, the configuration will be skipped for that user.
+Configure user accounts for `root`, `backup` and `monitoring` with appropriate grants. If either the name is empty or the password variable is not defined at all, the configuration will be skipped for that user. Be aware, that some tasks might not be carried out in case of the `root` user.
 
 ## Dependencies
 

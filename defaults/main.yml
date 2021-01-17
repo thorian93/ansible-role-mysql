@@ -14,9 +14,10 @@ mysql_login_root_remote: 'false'
 mysql_autobackup_enable: 'false'
 mysql_autobackup_destination: /var/lib/automysqlbackup
 
+# To create/update users set the passwords below. Otherwise the users will not be managed and some tasks may not be run.
 mysql_root_user: 'root'
-mysql_root_pw: []
+# mysql_root_pw:
 mysql_backup_user: 'backup'
-mysql_backup_pw: []
+# mysql_backup_pw:
 mysql_monitoring_user: 'monitoring'
-mysql_monitoring_pw: []
+# mysql_monitoring_pw:
