@@ -3,7 +3,7 @@ mysql_prerequisites:
   - python-pymysql
 
 mysql_server_package:
-  - mysql-server
+ - mariadb-server
 
 mysql_unix_socket: '/var/run/mysqld/mysqld.sock'
 
