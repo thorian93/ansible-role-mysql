@@ -6,6 +6,10 @@ This role installs MySQL on RHEL/CentOS, Debian/Ubuntu and Fedora servers.
 [![Ansible Role: MySQL](https://img.shields.io/ansible/quality/51295?style=flat-square)](https://galaxy.ansible.com/thorian93/ansible_role_mysql)
 [![Ansible Role: MySQL](https://img.shields.io/ansible/role/d/51295?style=flat-square)](https://galaxy.ansible.com/thorian93/ansible_role_mysql)
 
+## Here be Dragons
+
+**This role has ongoing issues with authentication. Currently I can only advise to use another role like the one by [Jeff Geerling](https://galaxy.ansible.com/geerlingguy/mysql). If I find the time I might fix this role, but for now consider it unmaintained.**
+
 ## Known issues
 
 When enabling the automatic backup mechanism currently you have to install `automysqlbackup` yourself when you are on a `RedHat` derivate prior to using this role. Otherwise the role will fail. Configuration can be managed though, as long as you have installed `automysqlbackup` with default settings from their install script.
