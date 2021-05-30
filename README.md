@@ -2,9 +2,9 @@
 
 This role installs MySQL on RHEL/CentOS, Debian/Ubuntu and Fedora servers.
 
-[![Ansible Role: MySQL](https://img.shields.io/ansible/role/51295?style=flat-square)](https://galaxy.ansible.com/thorian93/ansible_role_mysql)
-[![Ansible Role: MySQL](https://img.shields.io/ansible/quality/51295?style=flat-square)](https://galaxy.ansible.com/thorian93/ansible_role_mysql)
-[![Ansible Role: MySQL](https://img.shields.io/ansible/role/d/51295?style=flat-square)](https://galaxy.ansible.com/thorian93/ansible_role_mysql)
+[![Ansible Role: MySQL](https://img.shields.io/ansible/role/55139?style=flat-square)](https://galaxy.ansible.com/thorian93/mysql)
+[![Ansible Role: MySQL](https://img.shields.io/ansible/quality/55139?style=flat-square)](https://galaxy.ansible.com/thorian93/mysql)
+[![Ansible Role: MySQL](https://img.shields.io/ansible/role/d/55139?style=flat-square)](https://galaxy.ansible.com/thorian93/mysql)
 
 ## Here be Dragons
 
