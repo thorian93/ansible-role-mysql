@@ -1,6 +1,6 @@
 # Ansible Role: MySQL
 
-This role installs MySQL on RHEL/CentOS, Debian/Ubuntu and Fedora servers.
+This role installs MySQL on Debian/Ubuntu, RHEL/CentOS and Fedora servers.
 
 [![Ansible Role: MySQL](https://img.shields.io/ansible/role/55139?style=flat-square)](https://galaxy.ansible.com/thorian93/mysql)
 [![Ansible Role: MySQL](https://img.shields.io/ansible/quality/55139?style=flat-square)](https://galaxy.ansible.com/thorian93/mysql)
@@ -20,7 +20,7 @@ No special requirements; note that this role requires root access, so either run
 
     - hosts: foobar
       roles:
-        - role: ansible-role-mysql
+        - role: thorian93.mysql
           become: yes
 
 ## Role Variables
